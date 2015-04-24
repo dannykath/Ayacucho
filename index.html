@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>restaurantes</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js'></script>
+ <script src='restaurantes.geojson'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+for (var i = 0; i < restaurante.features.length; i++) {
+
+    restaurante.features[i].properties["title"]=restaurante.features[i].properties.name;
+    if(restaurante.features[i].properties.amenity=="restaurant"){
+    restaurante.features[i].properties["marker-color"]="#00FF00";
+    restaurante.features[i].properties["marker-symbol"]="restaurant";
+    restaurante.features[i].properties["description"] = '<img width="400px" height="300px" src="http://www.loveisall.pe/wp-content/uploads/2014/03/Imagen41.jpg"></img>';
+   
+    }
+    if(restaurante.features[i].properties.tourism=="hotel"){
+    restaurante.features[i].properties["marker-color"]="#CCFF00";
+    restaurante.features[i].properties["marker-symbol"]="lodging";
+     restaurante.features[i].properties["description"] ='<img width="300px"  height="300px" src="http://sierradorada.com.pe/web/wp-content/uploads/2014/07/slideend1.jpg"></img>';
+
+    }
+   
+};
+L.mapbox.accessToken = 'pk.eyJ1IjoiZGFubnlrYXRoIiwiYSI6InpQVFR4YnMifQ.75RM0RQILiSouwaJvaIq3g';
+L.mapbox.map('map', 'examples.map-i86nkdio')
+  .setView([-13.16, -74.20], 14)
+  .featureLayer.setGeoJSON(restaurante);
+</script>
+</body>
+</html>
